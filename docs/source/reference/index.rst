@@ -8,6 +8,7 @@ API Reference
 .. toctree::
    :maxdepth: 2
 	
+   backbone
    closure
    dijkstra
    distance

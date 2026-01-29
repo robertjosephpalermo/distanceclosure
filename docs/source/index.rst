@@ -66,13 +66,13 @@ Compute the metric closure (may be slow for large graphs):
 
 .. code-block:: python
 
-    closure = dc.distance_closure(G, kind='metric', weight='distance')
+    closure_metric = dc.distance_closure(G, kind='metric', weight='distance')
 
     # Access the metric distance and backbone membership
-    closure['s']['c']
+    closure_metric['s']['c']
     > {'distance': 6, 'metric_distance': 6, 'is_metric': True}
 
-    closure.number_of_edges()
+    closure_metric.number_of_edges()
     > 22
 
 
@@ -80,9 +80,9 @@ Compute the metric backbone:
 
 .. code-block:: python
 
-    backbone = dc.distance_closure(G, kind='metric', weight='distance', only_backbone=True)
+    backbone_metric = dc.distance_closure(G, kind='metric', weight='distance', only_backbone=True)
 
-    backbone.number_of_edges()
+    backbone_metric.number_of_edges()
     > 11
 
 

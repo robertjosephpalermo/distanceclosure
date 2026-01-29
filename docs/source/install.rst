@@ -1,16 +1,15 @@
 Installation
 =============
 
-
-Before installing Distance Closure, you need to have
+Before installing Distance Closure, verify that you have
 `setuptools <https://pypi.python.org/pypi/setuptools>`_ installed.
 
 
 Quick Install
 --------------
 
-The easier way to install this package is using pip.
-Just run the following command on terminal to install.
+The easiest way to install this package is with pip.
+Run the following command in your terminal:
 
 .. code-block:: bash
 
@@ -20,14 +19,14 @@ Just run the following command on terminal to install.
 Source code
 ------------
 
-The latest development release and source code is available on GitHub at `github.com/rionbr/distanceclosure <https://github.com/rionbr/distanceclosure>`_ and can be installed with the command
+The latest development release and source code is available on GitHub at `github.com/rionbr/distanceclosure <https://github.com/rionbr/distanceclosure>`_ and can be installed with the command:
 
 .. code-block:: bash
 
-	$pip install git+git://github.com/rionbr/distanceclosure
+	$pip install git+git://github.com/rionbr/distanceclosure.
 
 You can also download stable releases from the Python Package Index (Pypi) at
-https://pypi.python.org/pypi/distanceclosure
+https://pypi.python.org/pypi/distanceclosure.
 
 
 Requirements

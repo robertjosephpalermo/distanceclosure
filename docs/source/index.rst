@@ -18,7 +18,7 @@ Quick Install
 
 
 Core Functionality
---------------
+---------------------------------------
 A comprehensive overview can be found in the :doc:`reference/index` page.
 
 - :func:`distance_closure <distanceclosure.closure.distance_closure>`: Computes transitive closure on a weighted graph.
@@ -54,7 +54,7 @@ Instantciate a weighted graph:
         
         ('e', 'g'): 4,
         
-        ('f', 'g'): 0,
+        ('f', 'g'): 0
     }
     G = nx.from_edgelist(edge_list)
 
@@ -87,18 +87,20 @@ Compute the metric backbone:
 
 
 Recent Publications Using These Methods
-------------------
-NEEDS UPDATE
+---------------------------------------
 
-- :cite:`Correia:2022:meionav` Rion Brattig Correia, J.M. Almeida, M. Wyrwoll, I. Julca, D. Sobral, C.S. Misra, L.G. Guilgur, H. Schuppe, N. Silva, P. Prudêncio, A. Nóvoa, A.S. Leocádio, J. Bom, M. Mallo, S. Kliesch, M. Mutwil, Luis M. Rocha, F. Tüttelmann, J.D. Becker, and Paulo Navarro-Costa. `An old transcriptional program in male germ cells uncovers new causes of human infertility`__. **Under review**, 2022. doi:10.1101/2022.03.02.482557v2.
+- :cite:`brattig2024conserved` Brattig-Correia, Rion and Almeida, Joana M and Wyrwoll, Margot Julia and Julca, Irene and Sobral, Daniel and Misra, Chandra Shekhar and Di Persio, Sara and Guilgur, Leonardo Gaston and Schuppe, Hans-Christian and Silva, Neide and others. `The conserved genetic program of male germ cells uncovers ancient regulators of human spermatogenesis`__ *In Elife, 13:RP95774, 2024.* doi:10.7554/eLife.95774
 
-__ http://doi.org/10.1101/2022.03.02.482557v2
+__ https://doi.org/10.7554/eLife.95774
 
-- :cite:`Correia:2022:contact` Rion Brattig Correia, Alain Barrat, and Luis M. Rocha. `The metric backbone preserves community structure and is a primary transmission subgraph in contact networks`__. **Under review**, 2022. doi:10.1101/2022.02.02.478784
 
-__ http://doi.org/10.1101/2022.02.02.478784.
 
-- :cite:`Correia:2016` Rion Brattig Correia, Lang Li, and Luis M. Rocha. `Monitoring potential drug interactions and reactions via network analysis of instagram user timelines`__. In *Pacific Symposium on Biocomputing*, volume 21, pages 492–503. 2016. doi:10.1142/9789814749411_0045.
+- :cite:`brattig2023contact` Brattig Correia, Rion and Barrat, Alain and Rocha, Luis M `Contact networks have small metric backbones that maintain community structure and are primary transmission subgraphs`__ *In PLOS Computational Biology, 19(2):e1010854, 2023.* doi:10.1371/journal.pcbi.1010854
+
+__ https://doi.org/10.1371/journal.pcbi.1010854
+
+
+- :cite:`Correia:2016` Rion Brattig Correia, Lang Li, and Luis M. Rocha. `Monitoring potential drug interactions and reactions via network analysis of instagram user timelines`__ *In Pacific Symposium on Biocomputing, volume 21, pages 492–503. 2016.* doi:10.1142/9789814749411_0045
     
 __ http://www.informatics.indiana.edu/rocha/publications/PSB2016.php
 
@@ -108,15 +110,15 @@ Formal definition
 
 For the formal definition of the distance backbone, please refer to
 
-- :cite:`Simas:2021` Tiago Simas, Rion Brattig Correia, and Luis M. Rocha. `The distance backbone of complex networks`__. *Journal of Complex Networks*, 9:cnab021, 2021. doi:10.1093/comnet/cnab021.
+- :cite:`Simas:2021` Tiago Simas, Rion Brattig Correia, and Luis M. Rocha. `The distance backbone of complex networks`__ *In Journal of Complex Networks, 9:cnab021, 2021.* doi:10.1093/comnet/cnab021
 
 __ http://doi.org/10.1093/comnet/cnab021
 
-- :cite:`Simas:2015` Tiago Simas and Luis M. Rocha. `Distance closures on complex networks`__. *Network Science*, 3:227–268, 6 2015. doi:10.1017/nws.2015.11.
+- :cite:`Simas:2015` Tiago Simas and Luis M. Rocha. `Distance closures on complex networks`__ *In Network Science, 3:227–268, 6 2015.* doi:10.1017/nws.2015.11
 
 __ http://doi.org/10.1017/nws.2015.11
 
-Additional papers :cite:`Rocha:2002,Rocha:2005,Simas:2012,Ciampaglia:2015,Simas:2015,Correia:2016,Simas:2021, Correia:2022:contact,Correia:2022:meionav` can be found in the :doc:`bibliography` page.
+Additional papers :cite:`Rocha:2002,Rocha:2005,Simas:2012,Ciampaglia:2015,Simas:2015,Correia:2016,Simas:2021,brattig2024conserved,brattig2023contact` can be found in the :doc:`bibliography` page.
 
 ..
     Citation

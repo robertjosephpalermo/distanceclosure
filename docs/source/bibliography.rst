@@ -2,4 +2,4 @@ Bibliography
 ============
 
 .. bibliography:: refs.bib
-	:style: alpha
+	:style: unsrt

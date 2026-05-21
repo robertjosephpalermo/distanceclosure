@@ -53,7 +53,7 @@ Now, from distances to proximity:
 Building a Weighted Graph 
 --------------------------
 
-Let's say you observed a phenomenon :code:`n = 10` times. Think scientists talking during coffee breaks on a conference, co-expressed genes in replicate experiments, or friends seen together in photos. Each time, you ``counted`` how many times each pair of nodes (scientists, genes, friends) were observed together. If you translate these observations into an edgelist format, you have
+Let's say you observed a phenomenon :code:`n = 10` times. Think scientists talking during coffee breaks on a conference, co-expressed genes in replicate experiments, or friends seen together in photos. Each time, you counted how many times each pair of nodes (scientists, genes, friends) were observed together. If you translate these observations into an edgelist format, you have
 
 .. code-block:: python
 
@@ -97,7 +97,7 @@ To convert this similarity into a distance, we use the ``prox2dist`` function.
         ('m', 'j'): 1,
     }
 
-Now we use NetworkX and convert this edgelist format into a undirected weighted distance NetworkX.Graph object.
+Now we use NetworkX and convert this edgelist format into a undirected weighted distance ``NetworkX.Graph`` object.
 
 .. code-block:: python
 

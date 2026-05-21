@@ -89,20 +89,21 @@ Compute the metric backbone:
 Recent Publications Using These Methods
 ---------------------------------------
 
-- :cite:`brattig2024conserved` Brattig-Correia, Rion and Almeida, Joana M and Wyrwoll, Margot Julia and Julca, Irene and Sobral, Daniel and Misra, Chandra Shekhar and Di Persio, Sara and Guilgur, Leonardo Gaston and Schuppe, Hans-Christian and Silva, Neide and others. `The conserved genetic program of male germ cells uncovers ancient regulators of human spermatogenesis`__ *In Elife, 13:RP95774, 2024.* doi:10.7554/eLife.95774
+- :cite:`correia2026myaura` Brattig-Correia et al. `myAURA: a personalized health library for epilepsy management via knowledge graph sparsification and visualization`__ *In Journal of the American Medical Informatics Association, 33(1), pages 167-181. 2026.* doi:10.1093/jamia/ocaf012
+
+__ https://doi.org/10.1093/jamia/ocaf012
+
+- :cite:`guo2025focused` Guo et al. `Focused digital cohort selection from social media using the metric backbone of biomedical knowledge graphs.`__ *In Journal of Biomedical Informatics, 168, 104847. 2025.* doi:10.1016/j.jbi.2025.104847
+
+__ https://doi.org/10.1016/j.jbi.2025.104847
+
+- :cite:`soriano2025quantifying` Soriano et al. `Quantifying edge relevance for epidemic spreading via the semi-metric topology of complex networks.`__ *In Journal of Physics: Complexity, 6(3), 035005. 2025* doi:10.1088/2632-072X/adf2ed
+
+__ https://doi.org/10.1088/2632-072X/adf2ed
+
+- :cite:`brattig2024conserved` Brattig-Correia et al. `The conserved genetic program of male germ cells uncovers ancient regulators of human spermatogenesis`__ *In Elife, 13:RP95774, 2024.* doi:10.7554/eLife.95774
 
 __ https://doi.org/10.7554/eLife.95774
-
-
-
-- :cite:`brattig2023contact` Brattig Correia, Rion and Barrat, Alain and Rocha, Luis M `Contact networks have small metric backbones that maintain community structure and are primary transmission subgraphs`__ *In PLOS Computational Biology, 19(2):e1010854, 2023.* doi:10.1371/journal.pcbi.1010854
-
-__ https://doi.org/10.1371/journal.pcbi.1010854
-
-
-- :cite:`Correia:2016` Rion Brattig Correia, Lang Li, and Luis M. Rocha. `Monitoring potential drug interactions and reactions via network analysis of instagram user timelines`__ *In Pacific Symposium on Biocomputing, volume 21, pages 492–503. 2016.* doi:10.1142/9789814749411_0045
-    
-__ http://www.informatics.indiana.edu/rocha/publications/PSB2016.php
 
 
 Formal definition
@@ -110,11 +111,11 @@ Formal definition
 
 For the formal definition of the distance backbone, please refer to
 
-- :cite:`Simas:2021` Tiago Simas, Rion Brattig Correia, and Luis M. Rocha. `The distance backbone of complex networks`__ *In Journal of Complex Networks, 9:cnab021, 2021.* doi:10.1093/comnet/cnab021
+- :cite:`Simas:2021` Simas et al. `The distance backbone of complex networks`__ *In Journal of Complex Networks, 9:cnab021, 2021.* doi:10.1093/comnet/cnab021
 
 __ http://doi.org/10.1093/comnet/cnab021
 
-- :cite:`Simas:2015` Tiago Simas and Luis M. Rocha. `Distance closures on complex networks`__ *In Network Science, 3:227–268, 6 2015.* doi:10.1017/nws.2015.11
+- :cite:`Simas:2015` Simas et al. `Distance closures on complex networks`__ *In Network Science, 3:227–268, 6 2015.* doi:10.1017/nws.2015.11
 
 __ http://doi.org/10.1017/nws.2015.11
 

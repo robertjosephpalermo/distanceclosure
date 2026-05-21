@@ -54,7 +54,7 @@ googleanalytics_id = 'UA-71404006-1'
 
 # bibtex configuration
 bibtex_bibfiles = ['refs.bib']
-bibtex_default_style = 'plain'
+bibtex_default_style = 'unsrt'
 bibtex_reference_style = 'label'
 
 intersphinx_mapping = {'python': ('https://docs.python.org/3', None)}

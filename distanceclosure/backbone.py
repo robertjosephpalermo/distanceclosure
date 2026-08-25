@@ -210,26 +210,11 @@ def _closure_backbone(D: nx.Graph | nx.DiGraph, weight: str, disjunction: Callab
     elif disjunction == _drastic_disjunction:
         kind = "drastic"
 
-    DC = distance_closure(D, kind=kind, algorithm='dijkstra', weight=weight, existing_edges_only=True, verbose=verbose)
+    DC = distance_closure(D, kind=kind, weight=weight, existing_edges_only=True, verbose=verbose)
 
-    is_kind = 'is_{kind:s}'.format(kind=kind)
+    is_kind = 'is_{kind:s}'.format(kind=disjunction.__name__)
     metric_edges = [(u, v) for u, v in DC.edges() if DC[u][v][is_kind]]
     G = DC.edge_subgraph(metric_edges).copy()
-
-    if self_loops:
-        if kind == 'metric':
-            disjunction = sum
-        elif kind == 'ultrametric':
-            disjunction = max
-        elif kind == 'drastic':
-            disjunction = _drastic_disjunction
-            
-        for _, u in sloops:
-            for k in G.neighbors(u):
-                return_path = single_source_target_dijkstra_path(G, source=k, target=u, weight=weight, disjunction=disjunction, cutoff=cutoff-1)
-                spl = disjunction([G[u][k][weight], disjunction(G[return_path[idx-1]][return_path[idx]][weight] for idx in range(1, len(return_path)))])
-                if spl > D[u][u][weight]:
-                    G.add_edge(u, u, **D[u][u])
     
     if distortion:
         svals = _compute_distortions(D, G, weight=weight, kind=kind)         

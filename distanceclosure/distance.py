@@ -13,16 +13,17 @@ from scipy.spatial.distance import cdist, squareform, jaccard
 from itertools import combinations
 import warnings
 
-__author__ = """\n""".join(['Rion Brattig Correia <rionbr@gmail.com>'])
-__metrics__ = [
+
+__all__ = [
+    'pairwise_proximity'
+]
+
+
+_METRICS = [
     'jaccard', 'scipy',  # Numeric Jaccard (scipy.spatial.distance)
     'jaccard_binary', 'jb',  # Binary Jaccard Coefficient
     'jaccard_set', 'js',  # Set Comparison Jaccard Coefficient
     'jaccard_weighted', 'weighted_jaccard', 'wj'  # Weighted Jaccard
-]
-
-__all__ = [
-    'pairwise_proximity'
 ]
 
 def pairwise_proximity(M, metric='jaccard', *args, **kwargs):
@@ -229,8 +230,8 @@ def _jaccard_coef_weighted_numpy(u, v, min_support=10):
 
 
 def _check_for_metric_type(metric):
-    if metric not in __metrics__:
-        raise TypeError("Metric kind should be one of: '" + "' '".join(__metrics__) + "'")
+    if metric not in _METRICS:
+        raise TypeError("Metric kind should be one of: '" + "' '".join(_METRICS) + "'")
 
 
 def _get_dense_metric_function(metric):

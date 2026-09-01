@@ -9,10 +9,6 @@ import numpy as np
 import multiprocessing as mp
 
 
-__name__ = 'distanceclosure'
-__author__ = """\n""".join(['Felipe Xavier Costa <fcosta@binghamton.com>',
-                            'Bernardo Pereira <mbernardogp@gmail.com>'])
-
 __all__ = [
     "edge_distortion",
     "dombi_synthesis",

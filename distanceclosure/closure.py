@@ -11,14 +11,16 @@ import networkx as nx
 from typing import Callable
 from distanceclosure.dijkstra import all_pairs_dijkstra_path_length
 
-_KINDS = {
-    "metric": sum,
-    "ultrametric": max,
-}
 
 __all__ = [
     "distance_closure"
 ]
+
+
+_KINDS = {
+    "metric": sum,
+    "ultrametric": max,
+}
 
 def distance_closure(D: nx.Graph | nx.DiGraph, kind='metric', weight='weight', existing_edges_only=False, verbose=False) -> nx.Graph | nx.DiGraph: 
     """

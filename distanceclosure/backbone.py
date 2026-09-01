@@ -15,7 +15,6 @@ from itertools import product
 from typing import Callable
 
 
-
 __all__ = [
     "distance_backbone",
     "metric_backbone",
@@ -65,20 +64,23 @@ def distance_backbone(D: nx.Graph | nx.DiGraph, weight: str = "weight", kind: st
     elif cutoff is not None:
         raise NotImplementedError
     
-    if kind == 'metric':
-        disjunction = sum
-    elif kind == 'ultrametric':
-        disjunction = max
-    elif kind == 'drastic':
-        disjunction = _drastic_disjunction
-
     if kind not in _KINDS:
         raise ValueError("Invalid input. Valid arguments are 'metric' and 'ultrametric'.")
+
+    if kind == 'metric':
+        disjunction = _KINDS[kind]
+    elif kind == 'ultrametric':
+        disjunction = _KINDS[kind] 
+    elif kind == 'drastic':
+        disjunction = _KINDS[kind] 
 
     try:
         chosen_algorithm = _BACKBONE_ALGORITHMS[algorithm]
     except KeyError:
         raise ValueError("Invalid input. Valid arguments are 'iterative', 'flagged', 'closure', 'heuristic', or 'approximate'")
+
+    if chosen_algorithm is _BACKBONE_ALGORITHMS["closure"]:
+        return chosen_algorithm(D, weight=weight, kind=kind, disjunction=disjunction, distortion=distortion, self_loops=self_loops, cutoff=cutoff, verbose=verbose)
     
     return chosen_algorithm(D, weight=weight, disjunction=disjunction, distortion=distortion, self_loops=self_loops, cutoff=cutoff, verbose=verbose)
 

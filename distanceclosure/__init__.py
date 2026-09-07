@@ -15,5 +15,5 @@ __version__ = '0.6.1'
 
 from distanceclosure.backbone import  distance_backbone, metric_backbone, ultrametric_backbone
 from distanceclosure.closure import distance_closure
-from distanceclosure.distance import pairwise_proximity
-from distanceclosure.utils import prox2dist, dist2prox, dict2matrix, matrix2dict, dict2sparse, from_networkx_to_dijkstra_format, s_values, b_values
+from distanceclosure.utils import prox2dist, dist2prox, column_similarity
+from distanceclosure.edge_measures import edge_distortion, below_average_ratio, dombi_synthesis

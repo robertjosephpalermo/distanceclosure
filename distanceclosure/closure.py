@@ -52,9 +52,9 @@ def distance_closure(D: nx.Graph | nx.DiGraph, kind='metric', weight='weight', e
     """
 
     if kind == 'metric':
-        disjunction = sum
+        disjunction = _KINDS["metric"]
     elif kind == 'ultrametric':
-        disjunction = max
+        disjunction = _KINDS["ultrametric"]
 
     if kind not in _KINDS:
         raise ValueError("Invalid input. Valid arguments are 'metric' and 'ultrametric'.")
@@ -98,13 +98,12 @@ def _closure(D: nx.Graph | nx.DiGraph, kind: str, disjunction: Callable, weight:
 
     G = D.copy() 
     edges_seen = set()
-    total = G.number_of_nodes()
 
-    i = 1
+    if verbose:
+        total = G.number_of_nodes()
+        i = 0
+
     for u, lengths in all_pairs_dijkstra_path_length(G, weight=weight, disjunction=disjunction):
-        if verbose:
-            per = i / total
-            print("Distance Closure : dijkstra : {kind:s} : {i:d} of {total:d} ({per:.2%})".format(kind=kind, i=i, total=total, per=per))
         for v, length in lengths.items():
             if (u, v) in edges_seen or u == v:
                 continue
@@ -119,6 +118,12 @@ def _closure(D: nx.Graph | nx.DiGraph, kind: str, disjunction: Callable, weight:
                 else:
                     G[u][v][kind_distance] = length
                     G[u][v][is_kind] = True if (length == G[u][v][weight]) else False
-        i += 1
+
+        if verbose:
+            i += 1
+            per = i / total
+            print("Distance Closure : {kind:s} : {i:d} of {total:d} nodes processed ({per:.2%})".format(kind=kind, i=i, total=total, per=per))
+
+
 
     return G

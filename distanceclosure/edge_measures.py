@@ -16,12 +16,12 @@ __all__ = [
 ]
 
 
-def edge_distortion(D, weight='weight', kind='metric', self_loops=False, cutoff=None, verbose=False, *args, **kwargs):
+def edge_distortion(D, weight='weight', kind='metric', self_loops=False, cutoff=None, verbose=False):
     
     if kind == 'metric':
-        G, svals = metric_backbone(D, weight=weight, distortion=True, self_loops=self_loops, cutoff=cutoff, verbose=verbose, *args, **kwargs)
+        G, svals = metric_backbone(D, weight=weight, distortion=True, self_loops=self_loops, cutoff=cutoff, verbose=verbose)
     elif kind == 'ultrametric':
-        G, svals = ultrametric_backbone(D, weight=weight, distortion=True, self_loops=self_loops, cutoff=cutoff, verbose=verbose, *args, **kwargs)
+        G, svals = ultrametric_backbone(D, weight=weight, distortion=True, self_loops=self_loops, cutoff=cutoff, verbose=verbose)
     else:
         raise ValueError("Invalid kind. Choose 'metric' or 'ultrametric'.")
 
@@ -33,7 +33,7 @@ def edge_distortion(D, weight='weight', kind='metric', self_loops=False, cutoff=
     return D
 
 
-def below_average_ratio(D, weight='weight', kind='metric', self_loops=False, cutoff=None, verbose=False, *args, **kwargs):
+def below_average_ratio(D, weight='weight', kind='metric', self_loops=False, cutoff=None, verbose=False):
     """
     Computes below-average ratios for each edge with infinite distance, thus not existing in the original distance graph.
     The formal definition is as follow:
@@ -60,7 +60,7 @@ def below_average_ratio(D, weight='weight', kind='metric', self_loops=False, cut
     This computation takes a while.
     """
 
-    GC = distance_closure(D, weight=weight, kind=kind, only_reweight=False, self_loops=False, cutoff=None, verbose=verbose, *args, **kwargs)
+    GC = distance_closure(D, weight=weight, kind=kind, existing_edges_only=False, self_loops=False, cutoff=None, verbose=verbose)
 
     if GC.is_directed():
         sout = GC.out_degree(weight=weight)

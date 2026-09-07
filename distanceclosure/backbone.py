@@ -128,14 +128,15 @@ def _flagged_backbone(D: nx.Graph | nx.DiGraph, weight: str, disjunction: Callab
             else:
                 B.add_edge(node, neighbor)
 
-        if B.number_of_edges() == G.number_of_edges():
-            break    
-
         if verbose:
             i += 1
             per = i / total
-            print("Flagged Backbone : dijkstra : {disjunction:s} : {i:d} of {total:d} ({per:.2%})".format(i=i, total=total, per=per, disjunction=disjunction.__name__))
+            print("Flagged Backbone : {disjunction:s} : {i:d} of {total:d} nodes processed ({per:.2%})".format(i=i, total=total, per=per, disjunction=disjunction.__name__))
     
+        if B.number_of_edges() == G.number_of_edges():
+            break    
+
+   
     if distortion:
         svals = _compute_distortions(D, G, weight=weight, disjunction=disjunction)
         return G, svals
@@ -163,7 +164,7 @@ def _iterative_backbone(D: nx.Graph | nx.DiGraph, weight: str, disjunction: Call
         if verbose:
             i += 1
             per = i/total
-            print("Iterative Backbone : dijkstra : {disjunction:s} : {i:d} of {total:d} ({per:.2%})".format(i=i, total=total, per=per, disjunction=disjunction.__name__))
+            print("Iterative Backbone : {disjunction:s} : {i:d} of {total:d} nodes processed ({per:.2%})".format(i=i, total=total, per=per, disjunction=disjunction.__name__))
      
     if distortion:
         svals = _compute_distortions(D, G, weight=weight, disjunction=disjunction)    
@@ -172,8 +173,7 @@ def _iterative_backbone(D: nx.Graph | nx.DiGraph, weight: str, disjunction: Call
     return G
 
 
-def _closure_backbone(D: nx.Graph | nx.DiGraph, weight: str, disjunction: Callable, distortion: bool, self_loops: bool, cutoff: int, verbose: bool) -> nx.Graph | nx.DiGraph | tuple[nx.Graph | nx.DiGraph, dict]:
-    # Come back and fix this once I am done with the closure
+def _closure_backbone(D: nx.Graph | nx.DiGraph, weight: str, kind: str, disjunction: Callable, distortion: bool, self_loops: bool, cutoff: int, verbose: bool) -> nx.Graph | nx.DiGraph | tuple[nx.Graph | nx.DiGraph, dict]:
     """
     Backbone computation considering the closure.
 
@@ -204,17 +204,10 @@ def _closure_backbone(D: nx.Graph | nx.DiGraph, weight: str, disjunction: Callab
     NotImplementedError
         Self-loop closure and finite step (cutoff) not implemented yet
     """
+    G = D.copy()
+    DC = distance_closure(G, kind=kind, weight=weight, existing_edges_only=True, verbose=verbose)
 
-    if disjunction == sum:
-        kind = "metric"
-    elif disjunction == max:
-        kind = "ultrametric"
-    elif disjunction == _drastic_disjunction:
-        kind = "drastic"
-
-    DC = distance_closure(D, kind=kind, weight=weight, existing_edges_only=True, verbose=verbose)
-
-    is_kind = 'is_{kind:s}'.format(kind=disjunction.__name__)
+    is_kind = 'is_{kind:s}'.format(kind=kind)
     metric_edges = [(u, v) for u, v in DC.edges() if DC[u][v][is_kind]]
     G = DC.edge_subgraph(metric_edges).copy()
     
@@ -259,21 +252,26 @@ def _heuristic_backbone(D: nx.Graph | nx.DiGraph, weight: str, disjunction: Call
     """
 
     G = D.copy()
+    if verbose: 
+        total = G.number_of_nodes()
+        i = 0
 
     # Algorithm 1, page 676
-    G = _local_semi_triangles(G, disjunction=disjunction, weight=weight)
+    G = _local_semi_triangles(G, disjunction=disjunction, weight=weight, total=total, verbose=verbose)
 
     # Algorithm 2, page 677
-    backbone_edges = _local_triangular_edges(G, disjunction=disjunction, weight=weight)
+    backbone_edges = _local_triangular_edges(G, disjunction=disjunction, weight=weight, total=total, verbose=verbose)
+    # print("Heuristic Backbone : Algorithm 2 : Complete")
 
     metric_backbone = {(source, target) for source, target, _ in backbone_edges}
     unlabeled_edges = [(source, target) for source, target in G.edges() if (source, target) not in metric_backbone]
 
-
+    if verbose:
+        total = len(unlabeled_edges)
+    
     # Algorithm 3, page 677
     remaining_metric_edges = []
     for source, target in unlabeled_edges:
-        
         path = single_source_target_dijkstra_path(G, source=source, target=target, weight=weight, disjunction=disjunction, cutoff=cutoff)
         
         path_weights = [G[path[idx-1]][path[idx]][weight] for idx in range(1, len(path))]
@@ -281,6 +279,11 @@ def _heuristic_backbone(D: nx.Graph | nx.DiGraph, weight: str, disjunction: Call
 
         if G[source][target][weight] <= shortest_path_length:
             remaining_metric_edges.append((source, target))
+
+        if verbose:
+            i += 1
+            per = i / total
+            print("Heuristic Backbone : Algorithm 3 : {disjunction:s} : {i:d} of {total:d} unlabeled edges processed ({per:.2%})".format(i=i, total=total, per=per, disjunction=disjunction.__name__))
     
     final_edges = list(metric_backbone) + remaining_metric_edges
     G = G.edge_subgraph(final_edges).copy()
@@ -293,11 +296,14 @@ def _heuristic_backbone(D: nx.Graph | nx.DiGraph, weight: str, disjunction: Call
     return G
 
 
-def _approximate_backbone(D: nx.Graph | nx.DiGraph, weight: str, disjunction: Callable, distortion: bool, self_loops: bool, cutoff: int) -> nx.Graph | nx.DiGraph | tuple[nx.Graph | nx.DiGraph, dict]:
+def _approximate_backbone(D: nx.Graph | nx.DiGraph, weight: str, disjunction: Callable, distortion: bool, self_loops: bool, cutoff: int, verbose: bool) -> nx.Graph | nx.DiGraph | tuple[nx.Graph | nx.DiGraph, dict]:
     G = D.copy()
 
+    if verbose:
+        total = G.number_of_nodes()
+
     # Algorithm 1, page 676
-    G = _local_semi_triangles(G, disjunction=disjunction, weight=weight)
+    G = _local_semi_triangles(G, disjunction=disjunction, weight=weight, total=total, verbose=verbose)
 
     # Compute Distortion
     if distortion:
@@ -315,7 +321,10 @@ def _drastic_disjunction(iterable: list[float]) -> float:
         return np.inf   
 
 
-def _local_semi_triangles(graph: nx.Graph | nx.DiGraph, disjunction: Callable, weight: str = 'weight') -> nx.Graph | nx.DiGraph:
+def _local_semi_triangles(graph: nx.Graph | nx.DiGraph, disjunction: Callable, weight: str = 'weight', total: int = None, verbose: bool = False) -> nx.Graph | nx.DiGraph:
+    if verbose:
+        i = 0
+
     for a in graph.nodes():
         neighbors = list(graph[a])
         triangles_to_check = product(neighbors, neighbors)
@@ -326,10 +335,19 @@ def _local_semi_triangles(graph: nx.Graph | nx.DiGraph, disjunction: Callable, w
                 ab = graph[a][b][weight]
                 if disjunction([ cb, ac ]) < ab:
                     graph.remove_edge(a, b)
+
+        if verbose:
+            i += 1
+            per = i / total
+            print("Heuristic Backbone : Algorithm 1 : {disjunction:s} : {i:d} of {total:d} nodes processed ({per:.2%})".format(i=i, total=total, per=per, disjunction=disjunction.__name__))
+
     return graph
 
 
-def _local_triangular_edges(graph: nx.Graph | nx.DiGraph, disjunction: Callable, weight: str = 'weight') -> nx.Graph | nx.DiGraph:
+def _local_triangular_edges(graph: nx.Graph | nx.DiGraph, disjunction: Callable, weight: str = 'weight', total: int = None, verbose: bool = False) -> nx.Graph | nx.DiGraph:
+    if verbose:
+        i = 0
+
     U = {}
     for source in graph.nodes():
         neighbors = [(source, target, data[weight]) for target, data in graph[source].items()]
@@ -337,6 +355,11 @@ def _local_triangular_edges(graph: nx.Graph | nx.DiGraph, disjunction: Callable,
 
     metric_edges = set()
     for source in graph.nodes():
+        if verbose:
+            i += 1
+            per = i / total
+            print("Heuristic Backbone : Algorithm 2 : {disjunction:s} : {i:d} of {total:d} nodes processed before termination ({per:.2%})".format(i=i, total=total, per=per, disjunction=disjunction.__name__))
+
         if not U[source]:
             continue
 
@@ -363,7 +386,7 @@ def _local_triangular_edges(graph: nx.Graph | nx.DiGraph, disjunction: Callable,
                 weights_for_comparison = set()
             else:
                 return metric_edges
-            
+
     return metric_edges
 
 

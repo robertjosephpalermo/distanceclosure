@@ -17,7 +17,6 @@ __all__ = [
 
 
 def edge_distortion(D, weight='weight', kind='metric', self_loops=False, cutoff=None, verbose=False):
-    
     if kind == 'metric':
         G, svals = metric_backbone(D, weight=weight, distortion=True, self_loops=self_loops, cutoff=cutoff, verbose=verbose)
     elif kind == 'ultrametric':
@@ -117,7 +116,6 @@ def dombi_synthesis(D, prox_weight='weight', L=1e-4, R=1e3, ntrials=50, ncpu=1):
 
 
 def _get_largest_lambda_with_edge_in_backbone(net, edge, L, R, ntrial):
-
     res='None'
     for l in np.arange(L, R, 5):
         r=l+5

@@ -4,6 +4,12 @@ Dijkstra: shortest path algorithm for weighted graphs
 =====================================================
 
 These methods are used for the computation of shortest paths on weighted graphs and were adapted from the Networkx (``networkx.algorithms.shortest_paths.weighted``) implementation.
+
+Authors
+---------------------
+Rion Brattig Correia <rionbr@gmail.com>
+Felipe Xavier Costa <fcosta@binghamton.edu>
+Robert Palermo <rpalermo@binghamton.edu>
 """
 
 from heapq import heappush, heappop
@@ -11,14 +17,12 @@ from itertools import count
 import networkx as nx
 from networkx.algorithms.shortest_paths.weighted import _weight_function
 
-
 __all__ = [
     "all_pairs_dijkstra_path_length",
     "single_source_dijkstra_path_length",
     "single_source_target_dijkstra_path",
     "single_source_neighbors_dijkstra_path_length"
 ]
-
 
 def all_pairs_dijkstra_path_length(G, weight="weight", disjunction=sum, cutoff=None):
     """Computes shortest path lengths between all nodes in a weighted graph.

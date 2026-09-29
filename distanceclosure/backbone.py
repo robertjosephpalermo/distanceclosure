@@ -4,7 +4,13 @@ Distance Backbone
 =================
 
 Compute the distance backbones of both directed and undirected weighted graphs.
+
+Authors
+---------------------
+Felipe Xavier Costa <fcosta@binghamton.edu>
+Robert Palermo <rpalermo@binghamton.edu>
 """
+
 import numpy as np
 import networkx as nx
 
@@ -14,13 +20,11 @@ from distanceclosure.closure import distance_closure
 from itertools import product
 from typing import Callable
 
-
 __all__ = [
     "distance_backbone",
     "metric_backbone",
     "ultrametric_backbone" 
 ]
-
 
 def distance_backbone(D: nx.Graph | nx.DiGraph, weight: str = "weight", kind: str = "metric", algorithm: str = "iterative", distortion: bool = False, self_loops: bool = False, cutoff: int = None, verbose: bool = False) -> nx.Graph | nx.DiGraph | tuple[nx.Graph | nx.DiGraph, dict]:
     """
@@ -268,6 +272,7 @@ def _closure_backbone(D: nx.Graph | nx.DiGraph, weight: str, kind: str, disjunct
     is_kind = 'is_{kind:s}'.format(kind=kind)
     metric_edges = [(u, v) for u, v in DC.edges() if DC[u][v][is_kind]]
     G = DC.edge_subgraph(metric_edges).copy()
+    G.add_nodes_from(DC.nodes(data=True))
     
     if distortion:
         svals = _compute_distortions(D, G, weight=weight, kind=kind, self_loops=self_loops)
@@ -290,7 +295,10 @@ def _heuristic_backbone(D: nx.Graph | nx.DiGraph, weight: str, disjunction: Call
         Function used to measure path distance.
     distortion : bool
         Whether to compute and return the edge distortions of edges not in the backbone.
-    self_loops : bool
+    self_loops : boolstance_backbone_single_node
+    assert actual_nodes == expected_nodes
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    AssertionError
         Whether to remove self-loops that have a shorter path back to the same node.
     cutoff : int
         Maximum number of connections to be searched per path.
@@ -343,6 +351,7 @@ def _heuristic_backbone(D: nx.Graph | nx.DiGraph, weight: str, disjunction: Call
     
     final_edges = list(metric_backbone) + remaining_metric_edges
     G = G.edge_subgraph(final_edges).copy()
+    G.add_nodes_from(D.nodes(data=True))
 
     if self_loops:
         G = _remove_semi_triangular_self_loops(G, weight=weight, disjunction=disjunction)
@@ -578,6 +587,7 @@ def _compute_distortions(D: nx.Graph | nx.DiGraph, B: nx.Graph | nx.DiGraph, dis
                 svals[(u, v)] = G[u][v][weight]/metric_dist[v]
     
     return svals   
+
 
 _BACKBONE_ALGORITHMS = {
     "iterative": _iterative_backbone,

@@ -4,6 +4,12 @@ Distance Closure
 ================
 
 Compute the distance closure of a weighted graph.
+
+Authors
+---------------------
+Rion Brattig Correia <rionbr@gmail.com>
+Felipe Xavier Costa <fcosta@binghamton.edu>
+Robert Palermo <rpalermo@binghamton.edu>
 """
 
 import numpy as np
@@ -11,11 +17,9 @@ import networkx as nx
 from typing import Callable
 from distanceclosure.dijkstra import all_pairs_dijkstra_path_length, single_source_target_dijkstra_path
 
-
 __all__ = [
     "distance_closure"
 ]
-
 
 _KINDS = {
     "metric": sum,
@@ -137,5 +141,4 @@ def _closure(D: nx.Graph | nx.DiGraph, kind: str, disjunction: Callable, weight:
                 G[u][u][is_kind] = True if (length == G[u][u][weight]) else False
 
     return G
-
 

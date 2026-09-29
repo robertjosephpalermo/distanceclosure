@@ -1,18 +1,22 @@
 # -*- coding: utf-8 -*-
 """
 Utils
-==========================
+=====
 
 Utility functions for the Distance Closure package
+
+Authors
+---------------------
+Rion Brattig Correia <rionbr@gmail.com>
+Felipe Xavier Costa <fcosta@binghamton.edu>
 """
 
 import numpy as np
 import scipy.sparse as sp
-from scipy.sparse import csr_matrix, lil_matrix
-from scipy.spatial.distance import cdist, squareform, jaccard
+from scipy.sparse import lil_matrix
+from scipy.spatial.distance import squareform, jaccard
 from itertools import combinations
 import warnings
-
 
 _METRICS = [
     'jaccard', 'scipy',  # Numeric Jaccard (scipy.spatial.distance)

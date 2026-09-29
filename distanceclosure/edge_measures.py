@@ -1,5 +1,12 @@
 """
 Edge Measures from Distance Closure
+===================================
+
+Authors
+---------------------
+Felipe Xavier Costa  <fcosta@binghamton.edu>
+Rion Brattig Correia <rionbr@gmail.com>
+Bernardo Pereira <mbernardogp@gmail.com>
 """
 
 from distanceclosure.backbone import metric_backbone, ultrametric_backbone
@@ -8,13 +15,11 @@ import networkx as nx
 import numpy as np
 import multiprocessing as mp
 
-
 __all__ = [
     "edge_distortion",
     "dombi_synthesis",
     "below_average_ratio"
 ]
-
 
 def edge_distortion(D, weight='weight', kind='metric', self_loops=False, cutoff=None, verbose=False):
     if kind == 'metric':
